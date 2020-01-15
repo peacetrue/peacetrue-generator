@@ -1,4 +1,4 @@
-= gradle 模板项目
+= 生成器
 xiayx <xiayouxue@hotmail.com>
 v1.0, 2019-08-23: SNAPSHOT
 :doctype: docbook
@@ -10,4 +10,116 @@ v1.0, 2019-08-23: SNAPSHOT
 :testsourcedir: src/test/java
 :source-highlighter: highlightjs
 
-查看 http://peacetrue.github.io/public/peacetrue-template-gradle/index.html[详情^]
+//查看 http://peacetrue.github.io/public/peacetrue-template-structure-model/index.html[详情^]
+
+生成器可用于将模板文件生成目标文件。
+
+== 特性
+
+支持 模板文件内容使用 https://velocity.apache.org/[Velocity^] 模板语法::
+生成器基于 Velocity 实现，所以支持 Velocity 模板语法。
+支持模板目录::
+指定一个目录，该目录下的所有文件都是模板。 +
+单个文件作为模板时，使用生成器组件不如直接使用 Velocity 方便。
+支持 模板文件名中使用占位符::
+文件名中的占位符在解析后变成实际值，根据实际值创建目标文件。 实际值支持使用多层目录。
+
+== 环境
+
+* jdk8
+* spring-boot:1.5 可选，非 spring 环境需要自己构造生成器对象
+* velocity-engine-core:2.1
+* velocity-tools-generic:3.0
+
+== 用法
+
+=== 配置快照仓库
+
+[source%nowrap,maven]
+----
+<repository>
+    <id>sonatype-snapshots</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+</repository>
+----
+
+=== 引用类库
+
+.生成器基础类库
+[source%nowrap,maven]
+----
+<dependency>
+  <groupId>com.github.peacetrue.generator</groupId>
+  <artifactId>peacetrue-generator</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+----
+
+提供生成器的基础接口和目录名称生成器实现。
+
+.生成器velocity类库
+[source%nowrap,maven]
+----
+<dependency>
+  <groupId>com.github.peacetrue.generator</groupId>
+  <artifactId>peacetrue-generator-velocity</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+----
+
+提供文件生成器、目录内容生成器、目录生成器实现。
+
+=== 生成器介绍
+
+生成器的接口为：``Generator``。
+
+==== 目录名称生成器
+
+该生成器主要对目录名称中的占位符进行处理，其实现为``FolderNameGenerator``，参考单元测试 ``FolderNameGeneratorTest``。
+
+==== 目录内容生成器
+
+该生成器主要对目录下模板文件的内容进行处理，其实现为``VelocityFolderContentGenerator``，参考单元测试 ``VelocityFolderContentGeneratorTest``。
+
+==== 目录生成器
+
+该生成器兼具**目录名称生成器**和**目录内容生成器**的功能，其实现为``VelocityFolderGenerator``，参考单元测试 ``VelocityFolderContentGeneratorTest``。
+
+////
+== archetype:create-from-project
+
+描述::
+从当前项目创建原型项目。 +
+该目标读取您的源文件和资源文件，其参数值以及在.property文件中指定的属性，并使用它们使用maven-archetype打包创建Maven原型项目。 +
+如果您生成结果项目，它将创建原型。然后，您可以使用此原型创建类似于原始项目的新项目。 +
+maven-archetype-plugin使用Velocity扩展模板文件，并且本文档讨论“ Velocity属性”，它们是替换为Velocity模板的值。有关更多信息，请参见《速度用户指南》。 +
+此目标修改当前项目文件的文本，以形成构成原型的Velocity模板文件。
+
+package::
+一个指定的Java（或同类）程序包下的所有文件都重定位到用户在生成项目时选择的项目。 +
+对类名的引用将替换为属性引用。 +
+例如，如果当前项目的源在org.apache.saltedpeanuts包中，则字符串org.apache.saltedpeanuts的任何示例都将被Velocity属性引用 ${packageName}替换。 +
+当用户生成项目时，这将由他或她选择的软件包代替。
+
+custom properties::
+您可能会确定应由参数替换的其他字符串。 +
+要添加定制属性，必须使用propertyFile参数指定属性文件。 +
+有关详细信息，请参见propertyFile的文档。
+
+integration tests::
+您还可以指定从项目创建原型后立即执行的一组集成测试。 +
+每个测试都由src / it / projects目录下的单独目录组成，您可以在其中指定archetype.properties，goal.txt和verify.groovy文件。 +
+archetype.properties文件是用于从新创建的原型生成新项目的文件，goal.txt是用于在生成测试项目后指定要调用的Maven目标的单行文件。 +
+最后，verify.groovy是一个groovy文件，可用于在生成的项目上指定断言。
+
+请注意，您可能需要编辑此目标的结果。 +
+该目标无法排除不需要的文件，也不能向Velocity模板添加版权声明，也不能向原型元数据文件添加更复杂的元素。 +
+这个目标还生成了一个简单的集成测试，用于测试生成的原型。
+
+
+包含插件配置的属性文件。 +
+如果提供了此选项，则插件将从此处读取属性。 +
+此处的属性可以是下面列出的标准属性，也可以是此原型的自定义属性。 +
+标准属性如下。其中几个与该目标的参数重叠；最好只设置参数。
+////
+

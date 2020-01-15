@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<tools>
+    <toolbox scope="application">
+        <tool class="org.apache.velocity.tools.generic.DateTool"/>
+        <tool class="org.apache.velocity.tools.generic.EscapeTool"/>
+    </toolbox>
+</tools>

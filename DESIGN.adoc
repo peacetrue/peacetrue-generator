@@ -1,0 +1,82 @@
+= 生成器设计文档
+xiayx <xiayouxue@hotmail.com>
+v1.0, 2020-01-08: SNAPSHOT
+:doctype: docbook
+:toc: left
+:numbered:
+:imagesdir: docs/assets/images
+:sourcedir: src/main/java
+:resourcesdir: src/main/resources
+:testsourcedir: src/test/java
+:source-highlighter: highlightjs
+
+== 需求
+
+在开发模块的增删改查功能时，
+除了模块的属性不同之外，
+整体基本功能实现都类似，
+所以希望能够借助模板直接生成。
+
+== 文件名解析逻辑
+
+文件名中含有占位符，需要根据实际值创建文件。
+
+假设：
+
+. 模板目录：source
+** {name}.vm
+** prefix-{name}.vm
+** {folder}
+** {folder}/a.vm
+** {folder}/b.vm
+** {nestedFolder}
+** {nestedFolder}/a.vm
+** {nestedFolder}/b.vm
+. 上下文变量
+** name=hello
+** folder=org
+** nestedFolder=com.peacetrue
+
+则：
+
+* 目标目录：target
+** hello.vm
+** prefix-hello.vm
+** org
+** org/a.vm
+** org/b.vm
+** com/peacetrue
+** com/peacetrue/a.vm
+** com/peacetrue/b.vm
+
+实现逻辑为：
+
+. 解析模板路径中的占位符**{}**得到目标路径A
+. 在目标目录下根据目标路径A创建文件或目录
+. 如果是文件，拷贝文件内容
+
+扩展点：
+
+. 占位符解析方式可自定义，默认使用**{}**；
+. 嵌套目录之间的分隔符可自定义，默认使用**.**；
+
+== 上下文变量命名规范
+
+在模板中会使用到一个变量的多种形式，
+
+* 变量出现在包名中需要使用小写形式
+* 变量出现在类名中需要使用大写驼峰形式
+* 变量出现在常量中需要使用大写形式
+* 变量出现在属性中需要使用小写驼峰形式
+
+约定变量的命名方式等同于其实际值的命名方式，
+假设模块名为字典类别，则：
+
+* moduleName=dictionaryType
+* ModuleName=DictionaryType
+* modulename=dictionarytype
+* MODULE_NAME=DICTIONARY_TYPE
+
+用户提供小写驼峰形式的变量，其余形式可由程序自动设置。
+
+

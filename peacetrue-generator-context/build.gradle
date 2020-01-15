@@ -1,0 +1,12 @@
+description '生成器 velocity 上下文'
+
+dependencies {
+    api rootProject
+    compileOnly 'org.mybatis:mybatis'
+    compileOnly 'com.google.guava:guava'
+
+    testCompile 'junit:junit'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.boot:spring-boot-starter-logging'
+    testCompile 'org.mybatis:mybatis'
+}

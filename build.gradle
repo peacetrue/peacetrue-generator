@@ -9,9 +9,9 @@ plugins {
 
 allprojects { project ->
 
-    group "com.github.peacetrue.template"
-    version "1.0-SNAPSHOT"
-    description "gradle模板"
+    group "com.github.peacetrue.generator"
+    version "1.0.0-SNAPSHOT"
+    description "生成器"
 
     apply plugin: "java"
     apply plugin: "java-library"
@@ -24,7 +24,7 @@ allprojects { project ->
             inheritOutputDirs = false
             outputDir = tasks.compileJava.destinationDir
             testOutputDir = tasks.compileTestJava.destinationDir
-            downloadSources = true
+            downloadSources = false
             downloadJavadoc = false
         }
     }
@@ -51,10 +51,20 @@ allprojects { project ->
         implementation("com.google.code.findbugs:jsr305")
 
         testImplementation "junit:junit"
+        testImplementation "com.github.peacetrue:peacetrue-test:1.0.0-SNAPSHOT"
         testCompileOnly "org.projectlombok:lombok"
         testAnnotationProcessor "org.projectlombok:lombok"
         testImplementation "ch.qos.logback:logback-classic"
     }
+
+    sourceSets {
+        test {
+            resources {
+                srcDirs "src/test/resources", "src/test/java"
+            }
+        }
+    }
+
 
     task antoraCopySourceToExample() {
         doLast {
@@ -134,10 +144,18 @@ allprojects { project ->
     signing {
         sign publishing.publications.mavenJava
     }
-
 }
 
+dependencies {
+    api "org.slf4j:slf4j-api"
+    implementation "org.springframework:spring-core"
+    compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.boot:spring-boot-starter-logging'
+}
 
 
 

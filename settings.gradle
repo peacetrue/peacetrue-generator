@@ -1,1 +1,4 @@
-rootProject.name = "peacetrue-template-gradle"
+rootProject.name = "peacetrue-generator"
+include(":peacetrue-generator-velocity")
+include(":peacetrue-generator-context")
+//include(":peacetrue-generator-plugin")
