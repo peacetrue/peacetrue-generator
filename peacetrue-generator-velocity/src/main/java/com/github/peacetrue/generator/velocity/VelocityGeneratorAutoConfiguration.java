@@ -27,11 +27,13 @@ import static com.github.peacetrue.generator.GeneratorAutoConfiguration.*;
  */
 @Configuration
 @AutoConfigureAfter(GeneratorAutoConfiguration.class)
-//@AutoConfigureBefore(FolderGeneratorAutoConfiguration.class)
 public class VelocityGeneratorAutoConfiguration {
 
     @Autowired
     private GeneratorProperties properties;
+
+    public VelocityGeneratorAutoConfiguration() {
+    }
 
     @Bean
     @ConditionalOnMissingBean(name = "classpathVelocityEngine")

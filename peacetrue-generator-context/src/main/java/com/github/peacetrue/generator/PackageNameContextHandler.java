@@ -1,5 +1,8 @@
 package com.github.peacetrue.generator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -17,6 +20,8 @@ public class PackageNameContextHandler implements ContextHandler {
 
     public static final PackageNameContextHandler DEFAULT = new PackageNameContextHandler();
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     private String name;
     private String path;
 
@@ -32,7 +37,9 @@ public class PackageNameContextHandler implements ContextHandler {
     @Override
     public void handle(Map<String, Object> context) {
         Optional.ofNullable(context.get(name)).ifPresent(value -> {
-            context.put(path, value.toString().replaceAll("\\.", "/"));
+            String pathValue = value.toString().replaceAll("\\.", "/");
+            logger.debug("根据上下文变量[{}]=[{}]设置路径路径[{}]=[{}]", name, value, path, pathValue);
+            context.put(path, pathValue);
         });
     }
 }

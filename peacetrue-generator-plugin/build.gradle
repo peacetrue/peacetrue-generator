@@ -1,0 +1,10 @@
+description '生成器插件'
+
+dependencies {
+    api rootProject
+    implementation project(":peacetrue-generator-velocity")
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    // Use JUnit test framework for unit tests
+    testImplementation 'com.github.peacetrue.template:peacetrue-template-model-structure:1.0.0-SNAPSHOT'
+    testImplementation 'org.springframework.boot:spring-boot-starter'
+}

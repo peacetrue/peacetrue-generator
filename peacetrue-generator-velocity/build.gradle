@@ -1,8 +1,5 @@
 sourceSets {
     test {
-//        java {
-//            include("**/*.java", "**/*.vm")
-//        }
         resources {
             srcDirs "src/test/resources", "src/test/java"
         }
@@ -14,8 +11,6 @@ dependencies {
     api rootProject
     implementation 'org.apache.velocity:velocity-engine-core:2.1'
     implementation 'org.apache.velocity.tools:velocity-tools-generic:3.0'
-//    implementation 'com.google.guava:guava'
-//    api 'com.github.peacetrue.sql:peacetrue-sql:1.0.0-SNAPSHOT'
     compileOnly 'org.springframework.boot:spring-boot-autoconfigure'
     compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

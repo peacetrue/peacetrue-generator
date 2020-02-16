@@ -3,7 +3,7 @@ package com.github.peacetrue.util;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 /**
  * 文件工具类
@@ -44,26 +44,27 @@ public class FileUtils {
      * 重命名
      *
      * @param path 路径
-     * @throws IOException
+     * @throws IOException 重命名过程中发生异常
      */
-    public static void rename(Path path, Function<Path, Path> converter) throws IOException {
+    public static void rename(Path path, BiFunction<Path, Boolean, Path> converter) throws IOException {
         Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                this.move(dir);
-                return super.preVisitDirectory(dir, attrs);
-            }
 
-            private void move(Path dir) throws IOException {
-                Path convertedPath = converter.apply(dir);
+            private void move(Path dir, Boolean isDir) throws IOException {
+                Path convertedPath = converter.apply(dir, isDir);
                 if (convertedPath == dir) return;
                 Files.move(dir, convertedPath, StandardCopyOption.REPLACE_EXISTING);
             }
 
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                this.move(file);
+                this.move(file, false);
                 return super.visitFile(file, attrs);
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                this.move(dir, true);
+                return super.postVisitDirectory(dir, exc);
             }
         });
     }

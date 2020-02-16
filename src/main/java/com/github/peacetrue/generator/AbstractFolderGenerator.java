@@ -40,6 +40,8 @@ public abstract class AbstractFolderGenerator extends AbstractGenerator {
 
     @Override
     public void generate(Map<String, Object> context) throws IOException {
+        Objects.requireNonNull(getSourcePath());
+        Objects.requireNonNull(getTargetPath());
         logger.info("根据模板目录[{}]生成目标文件", getSourcePath());
 
         if (contextHandlers != null) contextHandlers.forEach(contextHandler -> contextHandler.handle(context));

@@ -32,7 +32,7 @@ v1.0, 2020-01-08: SNAPSHOT
 ** {nestedFolder}
 ** {nestedFolder}/a.vm
 ** {nestedFolder}/b.vm
-. 上下文变量
+. 参数
 ** name=hello
 ** folder=org
 ** nestedFolder=com.peacetrue
@@ -60,7 +60,7 @@ v1.0, 2020-01-08: SNAPSHOT
 . 占位符解析方式可自定义，默认使用**{}**；
 . 嵌套目录之间的分隔符可自定义，默认使用**.**；
 
-== 上下文变量命名规范
+== 参数命名规范
 
 在模板中会使用到一个变量的多种形式，
 

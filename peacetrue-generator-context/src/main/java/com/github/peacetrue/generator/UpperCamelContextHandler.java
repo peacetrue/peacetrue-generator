@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.function.Function;
 
 /**
- * 命名约定 转换器
+ * 命名约定 转换器，从大写驼峰转换成其他格式
  *
  * @author xiayx
  */

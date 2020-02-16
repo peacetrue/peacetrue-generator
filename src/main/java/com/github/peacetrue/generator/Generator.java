@@ -17,7 +17,7 @@ public interface Generator {
     /**
      * 生成目标物
      *
-     * @param context 上下文变量
+     * @param context 模板参数
      * @throws IOException 生成过程中出现异常
      */
     void generate(Map<String, Object> context) throws IOException;

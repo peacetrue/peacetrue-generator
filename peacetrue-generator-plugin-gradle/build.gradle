@@ -1,0 +1,38 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'signing'
+    id 'idea'
+}
+
+apply plugin: "idea"
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = tasks.compileJava.destinationDir
+        testOutputDir = tasks.compileTestJava.destinationDir
+        downloadSources = true
+        downloadJavadoc = false
+    }
+}
+
+dependencies {
+    implementation project(":peacetrue-generator-plugin"), {
+        exclude group: 'ch.qos.logback'
+    }
+
+    // Use JUnit test framework for unit tests
+    testImplementation 'com.github.peacetrue.template:peacetrue-template-model-structure:1.0.0-SNAPSHOT'
+}
+
+gradlePlugin {
+    plugins {
+        generator {
+            id = 'com.github.peacetrue.generator'
+            displayName = 'generator plugin'
+            description = 'generator plugin'
+            implementationClass = 'com.github.peacetrue.generator.plugin.GeneratorPlugin'
+        }
+    }
+}
+

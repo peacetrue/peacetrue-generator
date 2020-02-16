@@ -12,7 +12,7 @@ v1.0, 2019-08-23: SNAPSHOT
 
 //查看 http://peacetrue.github.io/public/peacetrue-template-structure-model/index.html[详情^]
 
-生成器可用于将模板文件生成目标文件。
+生成器用于根据模板和模板参数生成目标。
 
 == 特性
 

@@ -1,0 +1,29 @@
+//plugins {
+//    id('com.github.peacetrue.generator')
+//}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath('com.github.peacetrue.generator:peacetrue-generator-plugin-gradle:1.0.0-SNAPSHOT')
+        classpath('com.github.peacetrue.template:peacetrue-template-model-structure:1.0.0-SNAPSHOT')
+    }
+}
+
+apply plugin: 'com.github.peacetrue.generator'
+generateStructure {
+    properties = [
+            'peacetrue.generator.target-path': "$projectDir/peacetrue-dictionary",
+    ]
+    model = [
+            'project-name'     : 'peacetrue-dictionary',
+            'basePackageName'  : 'com.github.peacetrue.dictionary',
+            'DomainName'       : 'Dictionary',
+            'domainDescription': '字典',
+    ]
+}

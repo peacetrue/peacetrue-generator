@@ -9,7 +9,11 @@ import java.util.Map;
  */
 public interface ContextHandler {
 
-    /** 处理上下文 */
+    /**
+     * 处理上下文
+     *
+     * @param context 模板参数
+     */
     void handle(Map<String, Object> context);
 
 }

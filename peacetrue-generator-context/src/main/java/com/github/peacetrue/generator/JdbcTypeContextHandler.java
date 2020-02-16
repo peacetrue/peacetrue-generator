@@ -25,7 +25,7 @@ public class JdbcTypeContextHandler implements ContextHandler {
         context.put("javaTypeToJdbcType", convert(JdbcTypeContextHandler::fromJdbcType));
     }
 
-    private static final Map<Integer, Class> SQL_TYPE_TO_JAVA_TYPE = new HashMap<>();
+    private static final Map<Integer, Class<?>> SQL_TYPE_TO_JAVA_TYPE = new HashMap<>();
 
     //JDBCType
     static {
