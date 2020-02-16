@@ -14,7 +14,7 @@ public class GeneratorPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
-        project.getTasks().register("peacetrue-generate", GeneratorTask.class, task -> {
+        project.getTasks().register("peacetrueGenerate", GeneratorTask.class, task -> {
             //设置目标路径为当前项目
             Map<String, Object> properties = task.getClient().getProperties();
             if (properties == null) {

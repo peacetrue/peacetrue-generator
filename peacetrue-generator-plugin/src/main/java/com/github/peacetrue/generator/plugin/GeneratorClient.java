@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -39,7 +40,8 @@ public class GeneratorClient {
     public void generate() throws IOException {
         thisLogger.info("生成目标文件");
 
-        SpringApplication springApplication = new SpringApplication(new DefaultResourceLoader(), GeneratorContextAutoConfiguration.class);
+        SpringApplication springApplication = new SpringApplication(new DefaultResourceLoader(), GeneratorClient.class);
+        springApplication.setBannerMode(Banner.Mode.OFF);
         springApplication.setWebEnvironment(false);
         springApplication.setEnvironment(new StandardEnvironment() {
             @Override

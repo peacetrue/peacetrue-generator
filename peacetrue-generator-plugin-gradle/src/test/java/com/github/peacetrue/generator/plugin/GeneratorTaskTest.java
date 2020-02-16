@@ -19,7 +19,7 @@ public class GeneratorTaskTest {
         project.getPlugins().apply(GeneratorPlugin.class);
 
         // Verify the result
-        GeneratorTask generateStructure = (GeneratorTask) project.getTasks().findByName("generateStructure");
+        GeneratorTask generateStructure = (GeneratorTask) project.getTasks().findByName("peacetrueGenerate");
         assertNotNull(generateStructure);
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("peacetrue.generator.target-path", "/Users/xiayx/Documents/Projects/peacetrue-generator/peacetrue-dictionary");

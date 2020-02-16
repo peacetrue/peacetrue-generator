@@ -27,7 +27,7 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        generator {
+        peacetrueGenerate {
             id = 'com.github.peacetrue.generator'
             displayName = 'generator plugin'
             description = 'generator plugin'

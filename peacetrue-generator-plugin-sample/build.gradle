@@ -1,7 +1,3 @@
-//plugins {
-//    id('com.github.peacetrue.generator')
-//}
-
 buildscript {
     repositories {
         mavenLocal()
@@ -16,14 +12,15 @@ buildscript {
 }
 
 apply plugin: 'com.github.peacetrue.generator'
-generateStructure {
+peacetrueGenerate {
     properties = [
-            'peacetrue.generator.target-path': "$projectDir/peacetrue-dictionary",
+            'peacetrue.generator.target-path': "$rootDir/peacetrue-dictionary",
     ]
-    model = [
+    context = [
             'project-name'     : 'peacetrue-dictionary',
             'basePackageName'  : 'com.github.peacetrue.dictionary',
             'DomainName'       : 'Dictionary',
             'domainDescription': '字典',
     ]
 }
+
